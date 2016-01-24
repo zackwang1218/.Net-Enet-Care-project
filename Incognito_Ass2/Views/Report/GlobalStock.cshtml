@@ -1,0 +1,24 @@
+﻿@model Ass2.Incognito.Enet.ViewModels.DistributionCenterStockGUIView
+@{
+    ViewBag.Title = "GlobalStock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Global Stock</h2>
+<table border="1">
+    <tr><th>ID</th><th>Medication</th><th>Quantity</th><th>Total Value($)</th></tr>
+    @foreach (var med in Model.Items)
+    {
+        <tr>
+            <td>@med.ItemID</td>
+            <td>@med.ItemName</td>
+            <td>@med.Quantity</td>
+            <td>@med.Total</td>
+        </tr>
+    }
+    <tr>
+        <td colspan="2">Grand Total</td>
+        <td>@Model.TotalQuantity</td>
+        <td>@Model.TotalValue</td>
+    </tr>
+</table>

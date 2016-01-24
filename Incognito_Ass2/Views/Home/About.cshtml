@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+        </div>
+    </section>
+}
+
+<article>
+   <p>
+        ENET Care works by establishing distribution centres in remote communities. A distribution centre is
+        a building (or a tent) with storage shelves, a solar-powered refrigerator and satellite internet.
+        Distribution centres receive and store packages containing medications. Doctors at distribution centres
+        take packages from storage and give the medications to needy people.
+    </p>
+    <p>
+        Delivery and storage in remote distribution centres is very challenging. ENET Care does not track its
+        medications. However, management believes that many shipments of medications are being lost,
+        damaged, discarded or stolen. ENET Care would like to reduce losses. They would like to track
+        packages and use tracking information to identify problems in their supply chain.
+    </p>
+</article>
+
+<aside>
+    <h3>Quick Links</h3>
+    
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</aside>

@@ -1,0 +1,69 @@
+﻿@using Ass2.Incognito.Enet.Entities
+@model EmployeeLogin
+
+@{
+    ViewBag.Title = "EditEmployeeLoginDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Employee Login Detail</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    if (Model != null)
+    {
+        <table>
+            <tr>@Html.HiddenFor(x => x.EmpLoginID)</tr>
+            @if (Session["UserRole"] == "Manager")
+            {
+                <tr>
+                    <td>
+                        Medication :
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(x => x.DistributionCenterID, (IEnumerable<SelectListItem>)ViewBag.DistributionCenters, new { @disabled = "disabled" })
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>
+                        Medication :
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(x => x.DistributionCenterID, (IEnumerable<SelectListItem>)ViewBag.DistributionCenters)
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    Full Name :
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => x.Full_Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email Address :
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => x.Email)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Change" name="View" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("Change Password", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+                </td>
+            </tr>
+        </table>
+    }
+}

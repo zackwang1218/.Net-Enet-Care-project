@@ -1,0 +1,47 @@
+﻿@using Ass2.Incognito.Enet.Entities
+@*@model DistributionCenter *@
+@model Ass2.Incognito.Enet.ViewModels.DistributionCenterStockGUIView
+@{
+    ViewBag.Title = "DistributionCenterStock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DistributionCenterStock</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <table>
+        <tr>
+            <td>
+                Medication :
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.CenterID, (IEnumerable<SelectListItem>)ViewBag.DistributionCenters)
+            </td>
+            <td>
+                <input type="submit" value="View" name="View" />
+            </td>
+        </tr>
+       
+        @if(Model != null)
+        { 
+            <tr><th>ID</th><th>Medication</th><th>Quantity</th><th>Total Value($)</th></tr>
+            foreach (var med in Model.Items)
+            {
+                <tr>
+                    <td>@med.ItemID</td>
+                    <td>@med.ItemName</td>
+                    <td>@med.Quantity</td>
+                    <td>@med.Total</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="2">Grand Total</td>
+                <td>@Model.TotalQuantity</td>
+                <td>@Model.TotalValue</td>
+            </tr>
+        }
+    </table>
+}
+

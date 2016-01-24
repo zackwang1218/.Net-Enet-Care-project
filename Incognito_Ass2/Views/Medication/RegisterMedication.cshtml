@@ -1,0 +1,75 @@
+﻿@using Ass2.Incognito.Enet.Entities
+@model Medication
+@{
+    ViewBag.Title = "RegisterMedication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Register Medication</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <table>
+        <tr>
+            <td>
+                Description:
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.Description)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Quantity : 
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.Quantity)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Shelf Life(Days) : 
+            </td>
+            <td>
+               @Html.TextBoxFor(x => x.Shell_Life)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Value(AUD) : 
+            </td>
+            <td>
+               @Html.TextBoxFor(x => x.Value)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Temp Sensitivity :
+            </td>
+            <td>
+                @{
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    listItems.Add(new SelectListItem
+                         {
+                             Text = "Sensitive",
+                             Value = "Sensitive",
+                             Selected = true
+                         });
+                    listItems.Add(new SelectListItem
+                         {
+                             Text = "Not Sensitive",
+                             Value = "Not Sensitive"
+                         });
+                }
+                @Html.DropDownListFor(x => x.TempSensitivity, listItems)                
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <input type="submit" value="Register" />
+            </td>
+        </tr>       
+    </table>
+}

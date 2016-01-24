@@ -1,0 +1,55 @@
+﻿@using Ass2.Incognito.Enet.Entities
+@using Ass2.Incognito.Enet.Utilities
+@model Package
+@{
+    ViewBag.Title = "SendPackage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Send Package</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <table>
+        <tr>
+            <td>
+                Barcode:
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.Barcode)
+            </td>
+            <td>
+                <input type="submit" value="Search" name="SearchBarcode"/>
+            </td>
+        </tr>
+        @if (Model != null)
+        {
+            <table>
+                <tr><th>Center Name</th><th>Barcode</th><th>Name</th><th>Stock Status</th></tr>
+                <tr>
+                    <td>@Model.DistributionCenter.Name</td>
+                    <td>@Model.Barcode</td>
+                    <td>@Model.Medication.Description</td>
+                    <td>@Model.StockStatus</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        Destination:
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(x => x.ReceivingCenterID, (IEnumerable<SelectListItem>)ViewBag.DistributionCenters)
+                    </td>
+                    <td><input type="submit" value="Send" name="SendPackageConfirm" /></td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <td colspan="3">No package Found</td>
+                </tr>
+            </table>
+        }
+    </table>
+}

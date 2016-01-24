@@ -1,0 +1,37 @@
+﻿@model ICollection<AuthenticationClientData>
+
+@if (Model.Count == 0)
+{
+    <div class="message-info">
+            <ol class="round">
+                <li class="one">
+                    <h4>Username: agent1</h4>
+                    Password: rajan123
+                </li>
+                <li class="two">
+                    <h4>Username: doctor1</h4>
+                    Password: rajan123
+                </li>
+                <li class="three">
+                    <h4>Username: manager1</h4>
+                    Password: rajan123
+                </li>
+            </ol>
+    </div>
+}
+else
+{
+    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+    @Html.AntiForgeryToken()
+    <fieldset id="socialLoginList">
+        <legend>Log in using another service</legend>
+        <p>
+        @foreach (AuthenticationClientData p in Model)
+        {
+            <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">@p.DisplayName</button>
+        }
+        </p>
+    </fieldset>
+    }
+}

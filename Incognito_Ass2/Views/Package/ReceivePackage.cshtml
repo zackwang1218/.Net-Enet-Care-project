@@ -1,0 +1,51 @@
+﻿@using Ass2.Incognito.Enet.Entities
+@model Package
+@{
+    ViewBag.Title = "ReceivePackage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Receive Package</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <table>
+        <tr>
+            <td>
+                Barcode:
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.Barcode)
+            </td>
+            <td>
+                <input type="submit" value="Search" name="SearchBarcode" />
+            </td>
+        </tr>
+        @if (Model != null)
+        {
+            <table>
+                <tr><th>Sending Center</th><th>Receiving Center</th><th>Barcode</th><th>Name</th><th>Stock Status</th></tr>
+                <tr>
+                    <td>@Model.DistributionCenter.Name</td>
+                    <td>@Model.ReceivingCenter.Name</td>
+                    <td>@Model.Barcode</td>
+                    <td>@Model.Medication.Description</td>
+                    <td>@Model.StockStatus</td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <input type="submit" value="Receive Package" name="ReceivePackageConfirm" />
+                    </td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <td colspan="3">No package Found</td>
+                </tr>
+            </table>
+        }
+    </table>
+}

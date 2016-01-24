@@ -1,0 +1,28 @@
+﻿@model ICollection<Ass2.Incognito.Enet.ViewModels.DistributionCenterLossesView>
+    @{
+        ViewBag.Title = "DistributionCenterLosses";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h2>Distribution Center Losses</h2>
+    <table border="1">
+        <tr><th>Center</th><th>Loss Ratio</th><th>Loss/Discarded</th></tr>
+
+        @foreach (var med in Model)
+        {
+            var rowColor = "FFFFFF";
+            if (med.LossRatio > 9)
+            {
+                rowColor = "FF0000";
+            }
+            else
+            {
+                rowColor = "FFFFFF";
+            }
+            <tr bgcolor = @rowColor>
+                <td>@med.Center.Name</td>
+                <td>@med.LossRatio.ToString("0.00")</td>
+                <td>@med.LossPerDiscarded.ToString("0.00")</td>
+            </tr>
+        }
+    </table>

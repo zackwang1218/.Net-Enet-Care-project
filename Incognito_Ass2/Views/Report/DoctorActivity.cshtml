@@ -1,0 +1,45 @@
+﻿@model Ass2.Incognito.Enet.ViewModels.ValueInTransitView
+@{
+    ViewBag.Title = "DoctorActivity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DoctorActivity</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <table>
+        <tr>
+            <td>
+                Medication :
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.DoctorID, (IEnumerable<SelectListItem>)ViewBag.DoctorList)
+            </td>
+            <td>
+                <input type="submit" value="View" name="View" />
+            </td>
+        </tr>
+        
+        @if(Model != null)
+        { 
+            <tr><th>Medication</th><th>Quantity</th><th>Total Value($)</th></tr>
+            foreach (var med in Model.Items)
+            {
+                double totalValue = med.Medication.Value.Value * med.Medication.Quantity.Value;
+                <tr>
+                    <td>@med.Medication.Description</td>
+                    <td>@med.Medication.Quantity</td>
+                    <td>@totalValue</td>
+                </tr>
+            }
+            <tr>
+                <td>Grand Total</td>
+                <td>@Model.TotalQuantity</td>
+                <td>@Model.TotalValue</td>
+            </tr>
+        }
+    </table>
+}

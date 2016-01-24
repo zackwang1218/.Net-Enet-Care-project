@@ -1,0 +1,67 @@
+﻿@using Ass2.Incognito.Enet.Entities
+@model Package
+@{
+    ViewBag.Title = "AuditPackage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Audit Package</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <table>
+        <tr>
+            <td>
+                Barcode:
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.Barcode)
+            </td>
+            <td>
+                <input type="submit" value="Search" name="SearchBarcode" />
+            </td>
+        </tr>
+        @if (Model != null)
+        {
+            <table>
+                <tr><th>Center</th><th>Barcode</th><th>Name</th><th>Stock Status</th></tr>
+                <tr>
+                    <td>@Model.DistributionCenter.Name</td>
+                    <td>@Model.Barcode</td>
+                    <td>@Model.Medication.Description</td>
+                    <td>@Model.StockStatus</td>
+                </tr>
+                
+                <tr>
+                    <td>Action</td>
+                    <td>
+                        @Html.DropDownList("actionType", new SelectList(
+                          new List<Object>{
+                               new { value = "InStock" ,    text = "InStock"  },
+                               new { value = "Discard" ,    text = "Discard" },
+                               new { value = "Lost" , text = "Lost"},
+                               new { value = "Remove" ,     text = "Remove"},
+                            },
+                          "value",
+                          "text",
+                           2))
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <input type="submit" value="Audit Package" name="AuditFeature" />
+                    </td>
+                </tr>
+            </table>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <td colspan="3">No package Found</td>
+                </tr>
+            </table>
+        }
+    </table>
+}

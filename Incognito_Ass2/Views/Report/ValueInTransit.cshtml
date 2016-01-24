@@ -1,0 +1,28 @@
+﻿@model Ass2.Incognito.Enet.ViewModels.ValueInTransitView
+@{
+    ViewBag.Title = "ValueInTransit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Value In Transit</h2>
+
+<table border="1">
+    <tr><th>Sending Center</th><th>Receiving Center</th><th>Medication</th><th>Quantity</th><th>Total Value($)</th></tr>
+    @foreach (var med in Model.Items)
+    {       
+        double totalValue = med.Medication.Value.Value * med.Medication.Quantity.Value;
+        <tr>
+            <td>@med.DistributionCenter.Name</td>
+            <td>@med.ReceivingCenter.Name</td>
+            <td>@med.Medication.Description</td>
+            <td>@med.Medication.Quantity</td>
+            <td>@totalValue</td>
+        
+        </tr>
+    }
+    <tr>
+        <td colspan="3">Grand Total</td>
+        <td>@Model.TotalQuantity</td>
+        <td>@Model.TotalValue</td>
+    </tr>
+</table>

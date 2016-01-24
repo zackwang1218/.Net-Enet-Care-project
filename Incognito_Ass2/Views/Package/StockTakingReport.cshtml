@@ -1,0 +1,29 @@
+﻿@model ICollection<Ass2.Incognito.Enet.Entities.Package>
+@{
+    ViewBag.Title = "StockTakingReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Stock Taking Report</h2>
+<table border="1">
+    <tr><th>Barcode</th><th>Medication Name</th><th>Expiry Date</th><th>Stock Status</th></tr>
+
+    @foreach (var pack in Model)
+    {
+        var rowColor = "FFFFFF";
+        if (pack.ExpiryDate < DateTime.Now)
+        {
+            rowColor = "FF0000";
+        }
+        else if(pack.ExpiryDate > DateTime.Now && pack.ExpiryDate <= DateTime.Now.AddDays(7))
+        {
+            rowColor = "FFA500"; 
+        }
+        <tr bgcolor=@rowColor>
+            <td>@pack.Barcode</td>
+            <td>@pack.Medication.Description</td>
+            <td>@pack.ExpiryDate.ToString("dd-MMM-yyyy")</td>
+            <td>@pack.StockStatus</td>
+        </tr>
+    }
+</table>

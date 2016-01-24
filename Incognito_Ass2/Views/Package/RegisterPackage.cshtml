@@ -1,0 +1,59 @@
+﻿@using Ass2.Incognito.Enet.Entities
+@model Package
+@{
+    ViewBag.Title = "RegisterPackage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register Package</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <table>
+        <tr>
+            <td>
+                Medication :
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.MedicalID, (IEnumerable<SelectListItem>)ViewBag.Medications)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Expiry Date :
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.ExpiryDate)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @if (@Model != null)
+                {
+                    <img src="..\\..\\Barcode.aspx?code=@Model.Barcode" alt="Image" />
+                }
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Register" name="Register" />
+            </td>
+        </tr>
+    </table>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#MedicalID").change(function()
+        {
+            debugger;
+            var selected = $('#MedicalID').val();
+            $.post('@Url.Action("GetShellLife", "Package")',{id: selected},function(data){
+                debugger;
+                $('#ExpiryDate').val(data.FinalDate);
+            });
+        });
+    </script>
+}
